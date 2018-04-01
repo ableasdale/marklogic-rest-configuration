@@ -19,3 +19,6 @@ import module namespace sec = "http://marklogic.com/xdmp/security" at "/MarkLogi
 sec:privilege-add-roles("http://marklogic.com/xdmp/privileges/environment-ui","execute", "rest-view"),
 sec:create-user("rest-view", "Rest View", "test", ("rest-view"), (), ())
 ```
+
+this is also needed for viewing http://localhost:8002/manage/v2
+ http://marklogic.com/xdmp/privileges/manage
