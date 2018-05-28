@@ -37,42 +37,64 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
 
             <textarea>debug</textarea>
 
-            <form>
-                <div class="form-group">
-                    <label for="appServerName">App Server Name</label>
-                    <input type="text" class="form-control" id="appServerName" placeholder="Rest" required="true" />
-                    <small id="appServerNameHelp" class="form-text text-muted">Required. The name of the instance.</small>
+            <h4>Configure your ReST Server</h4>
+            <form class="border rounded p-5">
+                <div class="form-group row">
+                    <label class="required col-sm-2" for="appServerName">App Server Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="appServerName" placeholder="Rest" required="true" />
+                        <small id="appServerNameHelp" class="form-text text-muted">Required. The name of the instance.</small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="groupName">Group</label>
-                    <input type="text" class="form-control" id="appServerName" placeholder="Default"/>
-                    <small id="groupNameHelp" class="form-text text-muted">Optional. The group in which to create the App Server.</small>
+                <div class="form-group row">
+                    <label class="col-sm-2" for="groupName">Group</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="appServerName" placeholder="Default"/>
+                        <small id="groupNameHelp" class="form-text text-muted">Optional. The group in which to create the App Server.</small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="databaseName">Database</label>
-                    <select class="form-control">
-                        <option>(none specified)</option>
-                        {for $i in $DATABASES order by $i return element option{$i}}
-                    </select>
-                    <small id="databaseNameHelp" class="form-text text-muted">Optional. The name of the content database to associate with the instance. If the database does not exist, MarkLogic Server creates a new database with default settings and three forests. Use forests-per-host to change the number of forests.</small>
+                <div class="form-group row">
+                    <label class="col-sm-2" for="databaseName">Database</label>
+                    <div class="col-sm-10">
+                        <select class="form-control">
+                            <option>(none specified)</option>
+                            {for $i in $DATABASES order by $i return element option{$i}}
+                        </select>
+                        <small id="databaseNameHelp" class="form-text text-muted">Optional. The name of the content database to associate with the instance. If the database does not exist, MarkLogic Server creates a new database with default settings and three forests. Use forests-per-host to change the number of forests.</small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="portNumber">Port</label>
-                    <input type="number" id="portNumber" min="8003" max="65534" step="1" data-bind="value:portNumber"/>
-                    <!-- input type="text" class="form-control" id="port" placeholder="8020"/ -->
-                    <small id="portHelp" class="form-text text-muted">Optional. The port number to associate with the App Server.  If this value is left blank, the next available port number, starting with 8003 will be used.</small>
+                <div class="form-group row">
+                    <label class="col-sm-2" for="modulesDatabaseName">Modules Database</label>
+                    <div class="col-sm-10">
+                        <select class="form-control">
+                            <option>(none specified)</option>
+                            {for $i in $DATABASES order by $i return element option{$i}}
+                        </select>
+                        <small id="modulesDatabaseNameHelp" class="form-text text-muted">Optional. The name of the modules database to associate with the instance. If the database does not exist, MarkLogic Server creates a new database with default settings and one forest.</small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="forests">Forests Per Host</label>
-                    <input type="text" class="form-control" id="forests" placeholder="3"/>
-                    <small id="portHelp" class="form-text text-muted">Optional. The number of forests to create per host for the content database.</small>
+                <div class="form-group row">
+                    <label class="col-sm-2" for="portNumber">Port</label>
+                    <div class="col-sm-10">
+                        <input type="number" id="portNumber" min="8003" max="65534" step="1" data-bind="value:portNumber"/>
+                        <!-- input type="text" class="form-control" id="port" placeholder="8020"/ -->
+                        <small id="portHelp" class="form-text text-muted">Optional. The port number to associate with the App Server.  If this value is left blank, the next available port number, starting with 8003 will be used.</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2" for="forests">Forests Per Host</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="forests" placeholder="3"/>
+                        <small id="portHelp" class="form-text text-muted">Optional. The number of forests to create per host for the content database.</small>
+                    </div>
                 </div>
 
                 <div class="form-group">
+                    <input class="form-check-input" type="checkbox" checked="checked" id="xdbc"/>
                     <label for="xdbc">XDBC Enabled</label>
-                    <input type="text" class="form-control" id="xdbc" placeholder="false"/>
                     <small id="xdbcHelp" class="form-text text-muted">Optional. Whether or not to enable XDBC services in the instance. XDBC services must be enabled to use the /eval and /invoke services.</small>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
       
