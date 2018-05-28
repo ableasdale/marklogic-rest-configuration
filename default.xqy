@@ -1,5 +1,7 @@
 xquery version "1.0-ml";
 
+declare variable $DATABASES := for $i in xdmp:databases() return xdmp:database-name($i);
+
 xdmp:set-response-content-type("text/html; charset=utf-8"),
 '<!DOCTYPE html>',
 <html lang="en">
@@ -33,6 +35,8 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
                 </textarea>
             </div>
 
+            <textarea>debug</textarea>
+
             <form>
                 <div class="form-group">
                     <label for="appServerName">App Server Name</label>
@@ -46,12 +50,16 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
                 </div>
                 <div class="form-group">
                     <label for="databaseName">Database</label>
-                    <input type="text" class="form-control" id="databaseName" placeholder="Database"/>
+                    <select class="form-control">
+                        <option>(none specified)</option>
+                        {for $i in $DATABASES order by $i return element option{$i}}
+                    </select>
                     <small id="databaseNameHelp" class="form-text text-muted">Optional. The name of the content database to associate with the instance. If the database does not exist, MarkLogic Server creates a new database with default settings and three forests. Use forests-per-host to change the number of forests.</small>
                 </div>
                 <div class="form-group">
-                    <label for="port">Port</label>
-                    <input type="text" class="form-control" id="port" placeholder="8020"/>
+                    <label for="portNumber">Port</label>
+                    <input type="number" id="portNumber" min="8003" max="65534" step="1" data-bind="value:portNumber"/>
+                    <!-- input type="text" class="form-control" id="port" placeholder="8020"/ -->
                     <small id="portHelp" class="form-text text-muted">Optional. The port number to associate with the App Server.  If this value is left blank, the next available port number, starting with 8003 will be used.</small>
                 </div>
                 <div class="form-group">
@@ -62,7 +70,7 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
 
                 <div class="form-group">
                     <label for="xdbc">XDBC Enabled</label>
-                    <input type="text" class="form-control" id="xdbc" placeholder="true"/>
+                    <input type="text" class="form-control" id="xdbc" placeholder="false"/>
                     <small id="xdbcHelp" class="form-text text-muted">Optional. Whether or not to enable XDBC services in the instance. XDBC services must be enabled to use the /eval and /invoke services.</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
